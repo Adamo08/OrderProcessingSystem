@@ -215,6 +215,123 @@
         "tracking_number": "TRACK10005",
         "estimated_delivery": "2024-12-06T00:00:00Z"
       }
+    },
+    {
+      "order_id": "ORD10006",
+      "customer": {
+        "customer_id": "CUST006",
+        "name": "Grace Lee",
+        "email": "grace.lee@example.com",
+        "phone": "+1234567895",
+        "address": {
+          "street": "101 Cherry Blvd",
+          "city": "San Francisco",
+          "state": "CA",
+          "postal_code": "94101",
+          "country": "USA"
+        }
+      },
+      "items": [
+        {
+          "product_id": "PROD009",
+          "product_name": "Smartphone",
+          "quantity": 1,
+          "unit_price": 799.99,
+          "total_price": 799.99
+        }
+      ],
+      "order_date": "2024-12-04T16:00:00Z",
+      "status": "Delivered",
+      "payment": {
+        "payment_id": "PAY10006",
+        "method": "Credit Card",
+        "total_amount": 799.99,
+        "currency": "USD",
+        "status": "Paid"
+      },
+      "shipping": {
+        "method": "Standard Shipping",
+        "tracking_number": "TRACK10006",
+        "estimated_delivery": "2024-12-08T00:00:00Z"
+      }
+    },
+    {
+      "order_id": "ORD10007",
+      "customer": {
+        "customer_id": "CUST007",
+        "name": "Hannah Green",
+        "email": "hannah.green@example.com",
+        "phone": "+1234567896",
+        "address": {
+          "street": "65 Pine Ave",
+          "city": "Los Angeles",
+          "state": "CA",
+          "postal_code": "90001",
+          "country": "USA"
+        }
+      },
+      "items": [
+        {
+          "product_id": "PROD010",
+          "product_name": "Smartwatch",
+          "quantity": 1,
+          "unit_price": 249.99,
+          "total_price": 249.99
+        }
+      ],
+      "order_date": "2024-12-05T11:20:00Z",
+      "status": "Shipped",
+      "payment": {
+        "payment_id": "PAY10007",
+        "method": "Debit Card",
+        "total_amount": 249.99,
+        "currency": "USD",
+        "status": "Paid"
+      },
+      "shipping": {
+        "method": "Standard Shipping",
+        "tracking_number": "TRACK10007",
+        "estimated_delivery": "2024-12-09T00:00:00Z"
+      }
+    },
+    {
+      "order_id": "ORD10008",
+      "customer": {
+        "customer_id": "CUST008",
+        "name": "Invalid Customer",
+        "email": "invalid.customer@example.com",
+        "phone": "+1234567897",
+        "address": {
+          "street": "123 Fake St",
+          "city": "Nowhere",
+          "state": "ZZ",
+          "postal_code": "00000",
+          "country": "USA"
+        }
+      },
+      "items": [
+        {
+          "product_id": "PROD011",
+          "product_name": "Smartphone",
+          "quantity": 1,
+          "unit_price": 799.99,
+          "total_price": 799.99
+        }
+      ],
+      "order_date": "2024-12-06T09:00:00Z",
+      "status": "Pending",
+      "payment": {
+        "payment_id": "PAY10008",
+        "method": "Credit Card",
+        "total_amount": 799.99,
+        "currency": "USD",
+        "status": "Failed"
+      },
+      "shipping": {
+        "method": null,
+        "tracking_number": null,
+        "estimated_delivery": null
+      }
     }
   ]
 }
