@@ -4,6 +4,8 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
+.idea/dataSources.xml
+.idea/sqldialects.xml
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
