@@ -1,47 +1,36 @@
 package com.adamo;
 
-import com.adamo.model.*;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.adamo.model.OrderList;
+import com.adamo.service.FileService;
+import com.adamo.service.OrderService;
+import com.adamo.util.JsonParser;
+import com.adamo.util.Scheduler;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
-        // Create sample orders
-        List<Order> orders = new ArrayList<>();
 
-        // Add a sample order
-        Order order = new Order();
-        order.setOrderId("ORD10001");
-        Customer customer = new Customer("CUST001", "Alice Johnson", "alice.johnson@example.com", "+1234567890",
-                new Address("12 Apple Lane", "Seattle", "WA", "98101", "USA"));
-        order.setCustomer(customer);
+    public static void main(String[] args) throws IOException {
 
-        List<Item> items = new ArrayList<>();
-        items.add(new Item("PROD001", "Laptop", 1, 999.99, 999.99));
-        items.add(new Item("PROD002", "Laptop Bag", 1, 49.99, 49.99));
-        order.setItems(items);
+        // Start the Scheduler to read orders every hour
+        Scheduler scheduler = new Scheduler();
+        scheduler.startReadingOrdersEveryHour();
 
-        order.setOrderDate("2024-12-01T10:15:00Z");
-        order.setStatus("Delivered");
+        // Create instances of FileService and OrderService to handle orders
+        FileService fileService = new FileService();
+        OrderService orderService = new OrderService();
 
-        Payment payment = new Payment("PAY10001", "Credit Card", 1049.98, "USD", "Paid");
-        order.setPayment(payment);
+        // Simulate processing orders from an initial file
+        String ordersFilePath = "src/main/java/com/adamo/resources/data/orders.json";
 
-        Shipping shipping = new Shipping("Standard Shipping", "TRACK10001", "2024-12-05T00:00:00Z");
-        order.setShipping(shipping);
+        // Read and process orders immediately (optional, in case we need an immediate start)
+        fileService.readOrdersFromFile(ordersFilePath);
 
-        orders.add(order);
+        // If you want to trigger order processing manually in the main method for testing purposes, uncomment below
+        OrderList orderList = JsonParser.readJsonFile(ordersFilePath, OrderList.class);
+        orderService.processOrders(orderList);
 
-        // Serialize to JSON
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(new OrderList(orders));
-        System.out.println(json);
-
-        // Deserialize back to object
-        OrderList deserializedOrders = gson.fromJson(json, OrderList.class);
-        System.out.println(deserializedOrders);
+        // Let the scheduler handle the regular reading and processing every hour
+        System.out.println("Order processing scheduler started. Will process orders every hour.");
     }
 }

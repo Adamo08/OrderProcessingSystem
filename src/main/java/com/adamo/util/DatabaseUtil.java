@@ -40,6 +40,8 @@ public class DatabaseUtil {
             } catch (SQLException e) {
                 System.err.println("Failed to close the database connection.");
                 e.printStackTrace();
+            } finally {
+                connection = null;
             }
         }
     }
