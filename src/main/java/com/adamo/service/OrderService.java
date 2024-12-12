@@ -3,13 +3,9 @@ package com.adamo.service;
 import com.adamo.dao.CustomerDao;
 import com.adamo.dao.OrderDao;
 import com.adamo.dao.ProductDao;
-import com.adamo.model.Customer;
-import com.adamo.model.Item;
-import com.adamo.model.Order;
-import com.adamo.model.OrderList;
-import com.adamo.model.Payment;
-import com.adamo.model.Shipping;
+import com.adamo.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderService {
@@ -21,10 +17,30 @@ public class OrderService {
 
     // Process orders from the provided order list
     public void processOrders(OrderList orderList) {
+        List<Order> confirmedOrders = new ArrayList<>();
+        List<Order> errorOrders = new ArrayList<>();
+
         for (Order order : orderList.getOrders()) {
-            boolean success = processOrder(order);
-            // After processing each order, write to the appropriate file
-            fileService.processOrders(orderList, success);
+            if (processOrder(order)) {
+                confirmedOrders.add(order);
+            } else {
+                errorOrders.add(order);
+            }
+        }
+
+        // Write the results to the appropriate files
+        if (!confirmedOrders.isEmpty()) {
+            fileService.writeConfirmedOrdersToFile(
+                    "src/main/java/com/adamo/resources/data/confirmed.json",
+                    new OrderList(confirmedOrders)
+            );
+        }
+
+        if (!errorOrders.isEmpty()) {
+            fileService.writeErrorOrdersToFile(
+                    "src/main/java/com/adamo/resources/data/errors.json",
+                    new OrderList(errorOrders)
+            );
         }
     }
 
@@ -57,18 +73,44 @@ public class OrderService {
             return false;  // Error in processing
         }
 
+//        if (Objects.equals(order.getStatus(), "Processed")){
+//            return true;
+//        }
+
         // If all validations pass, process the order
         order.setStatus("Processed");
         orderDao.addOrder(order);
         System.out.println("Order processed: " + order.getOrderId());
 
-        return true;  // Successful processing
+        return true;
     }
 
-    // Validate payment status (for example, check if it's "Paid")
+    // Validate payment status and ensure attributes are not null
     private boolean validatePayment(Payment payment) {
-        return "Paid".equals(payment.getStatus());
+        if (payment.getPaymentId() == null || payment.getPaymentId().isEmpty()) {
+            System.out.println("Error: Payment ID is missing.");
+            return false;
+        }
+        if (payment.getMethod() == null || payment.getMethod().isEmpty()) {
+            System.out.println("Error: Payment method is missing.");
+            return false;
+        }
+        if (payment.getCurrency() == null || payment.getCurrency().isEmpty()) {
+            System.out.println("Error: Currency is missing.");
+            return false;
+        }
+        if (payment.getTotalAmount() <= 0) {
+            System.out.println("Error: Total amount must be greater than zero.");
+            return false;
+        }
+        if (payment.getStatus() == null ||
+                (!"Paid".equals(payment.getStatus()) && !"Pending".equals(payment.getStatus()))) {
+            System.out.println("Error: Payment status must be 'Paid' or 'Pending'.");
+            return false;
+        }
+        return true;
     }
+
 
     // Validate the items in the order (check stock, etc.)
     private boolean validateOrderItems(List<Item> items) {
@@ -86,8 +128,8 @@ public class OrderService {
         // Check if shipping method and tracking number are valid
         return
                 shipping.getMethod() != null &&
-                !shipping.getMethod().isEmpty() &&
-                shipping.getTrackingNumber() != null &&
-                !shipping.getTrackingNumber().isEmpty();
+                        !shipping.getMethod().isEmpty() &&
+                        shipping.getTrackingNumber() != null &&
+                        !shipping.getTrackingNumber().isEmpty();
     }
 }
