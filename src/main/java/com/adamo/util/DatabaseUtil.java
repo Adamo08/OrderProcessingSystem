@@ -1,7 +1,9 @@
 package com.adamo.util;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseUtil {
@@ -10,39 +12,29 @@ public class DatabaseUtil {
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
-    private static Connection connection = null;
+    private static HikariDataSource dataSource;
+
+    static {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(URL);
+        config.setUsername(USER);
+        config.setPassword(PASSWORD);
+        config.setMaximumPoolSize(10);
+        dataSource = new HikariDataSource(config);
+    }
 
     // Private constructor to prevent instantiation
     private DatabaseUtil() {}
 
     // Method to establish a connection
-    public static Connection getConnection() {
-        // If the connection is null, it will try to establish a new connection
-        if (connection == null) {
-            try {
-                connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                System.out.println("Database connected successfully.");
-            } catch (SQLException e) {
-                System.err.println("Failed to connect to database.");
-                e.printStackTrace();
-            }
-        }
-        return connection;
+    public static Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
     }
 
-
-    // Method to close the connection
-    public static void closeConnection() {
-        if (connection != null) {
-            try {
-                connection.close();
-                System.out.println("Database connection closed.");
-            } catch (SQLException e) {
-                System.err.println("Failed to close the database connection.");
-                e.printStackTrace();
-            } finally {
-                connection = null;
-            }
+    // Method to close the data source
+    public static void closeDataSource() {
+        if (dataSource != null) {
+            dataSource.close();
         }
     }
 }
