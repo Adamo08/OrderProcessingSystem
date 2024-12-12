@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,7 +14,7 @@ class DatabaseUtilTest {
     private static Connection connection;
 
     @BeforeAll
-    static void setUp() {
+    static void setUp() throws SQLException {
         connection = DatabaseUtil.getConnection();
     }
 
