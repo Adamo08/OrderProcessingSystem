@@ -51,14 +51,4 @@ public class FileService {
         });
     }
 
-    // Helper method to process the orders and determine success/failure
-    public void processOrders(OrderList orderList, boolean success) {
-        if (success) {
-            // Write confirmed orders to the file
-            writeConfirmedOrdersToFile("src/main/java/com/adamo/resources/data/confirmed.json", orderList);
-        } else {
-            // Write error orders to the file
-            writeErrorOrdersToFile("src/main/java/com/adamo/resources/data/errors.json", orderList);
-        }
-    }
 }
