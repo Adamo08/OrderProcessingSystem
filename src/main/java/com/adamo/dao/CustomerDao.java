@@ -15,22 +15,17 @@ public class CustomerDao {
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, customerId);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                Address address = new Address(
-                        rs.getString("street"),
-                        rs.getString("city"),
-                        rs.getString("state"),
-                        rs.getString("postal_code"),
-                        rs.getString("country")
-                );
-                return new Customer(
-                        rs.getString("customer_id"),
-                        rs.getString("name"),
-                        rs.getString("email"),
-                        rs.getString("phone"),
-                        address
-                );
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    Address address = mapAddress(rs);
+                    return new Customer(
+                            rs.getString("customer_id"),
+                            rs.getString("name"),
+                            rs.getString("email"),
+                            rs.getString("phone"),
+                            address
+                    );
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,13 +40,8 @@ public class CustomerDao {
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(query)) {
             while (rs.next()) {
-                Address address = new Address(
-                        rs.getString("street"),
-                        rs.getString("city"),
-                        rs.getString("state"),
-                        rs.getString("postal_code"),
-                        rs.getString("country")
-                );
+                Address address = mapAddress(rs);
+                System.out.println(address);
                 customers.add(new Customer(
                         rs.getString("customer_id"),
                         rs.getString("name"),
@@ -59,10 +49,21 @@ public class CustomerDao {
                         rs.getString("phone"),
                         address
                 ));
+                System.out.println(customers);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return customers;
+    }
+
+    private Address mapAddress(ResultSet rs) throws SQLException {
+        return new Address(
+                rs.getString("street"),
+                rs.getString("city"),
+                rs.getString("state"),
+                rs.getString("postal_code"),
+                rs.getString("country")
+        );
     }
 }
