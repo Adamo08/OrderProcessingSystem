@@ -11,8 +11,11 @@ public class JsonParser {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     public static <T> T readJsonFile(String filePath, Class<T> valueType) throws IOException {
-        return objectMapper.readValue(new File(filePath), valueType);
+        File file = new File(filePath);
+//        System.out.println("Reading file: " + file.getAbsolutePath() + " (Last Modified: " + file.lastModified() + ")");
+        return objectMapper.readValue(file, valueType);
     }
+
 
     public static <T> void writeJsonFile(T data, FileWriter writer) throws IOException {
         objectMapper.writeValue(writer, data);
