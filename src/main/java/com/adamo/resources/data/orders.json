@@ -1,5 +1,6 @@
 {
-  "orders": [
+  "orders":
+  [
     {
       "order_id": "ORD10001",
       "customer": {
@@ -41,6 +42,7 @@
         "status": "Paid"
       },
       "shipping": {
+        "shipping_id": 1,
         "method": "Standard Shipping",
         "tracking_number": "TRACK10001",
         "estimated_delivery": "2024-12-05T00:00:00Z"
@@ -80,6 +82,7 @@
         "status": "Paid"
       },
       "shipping": {
+        "shipping_id": 2,
         "method": "Standard Shipping",
         "tracking_number": "TRACK10002",
         "estimated_delivery": "2024-12-07T00:00:00Z"
@@ -126,6 +129,7 @@
         "status": "Pending"
       },
       "shipping": {
+        "shipping_id": 3,
         "method": "Standard Shipping",
         "tracking_number": null,
         "estimated_delivery": "2024-12-10T00:00:00Z"
@@ -165,6 +169,7 @@
         "status": "Refunded"
       },
       "shipping": {
+        "shipping_id": null,
         "method": null,
         "tracking_number": null,
         "estimated_delivery": null
@@ -211,6 +216,7 @@
         "status": "Paid"
       },
       "shipping": {
+        "shipping_id": 4,
         "method": "Express Shipping",
         "tracking_number": "TRACK10005",
         "estimated_delivery": "2024-12-06T00:00:00Z"
@@ -250,6 +256,7 @@
         "status": "Paid"
       },
       "shipping": {
+        "shipping_id": 2,
         "method": "Standard Shipping",
         "tracking_number": "TRACK10006",
         "estimated_delivery": "2024-12-08T00:00:00Z"
@@ -289,6 +296,7 @@
         "status": "Paid"
       },
       "shipping": {
+        "shipping_id": 2,
         "method": "Standard Shipping",
         "tracking_number": "TRACK10007",
         "estimated_delivery": "2024-12-09T00:00:00Z"
@@ -328,6 +336,7 @@
         "status": "Failed"
       },
       "shipping": {
+        "shipping_id": 1,
         "method": null,
         "tracking_number": null,
         "estimated_delivery": null
