@@ -27,13 +27,28 @@ The **Order Processing System** is a Java-based application that processes order
 2. **Install Dependencies**:
    Ensure you have Java and Maven installed.
 
-3. **Build the Project**:
+3. **Create the Database**:
+   - First, create a MySQL database named ```oms_db```
+
+4. **Import the Database Schema**:
+   - Import the `tables.sql` file located in the `util` package to your database in phpMyAdmin. This file contains the SQL commands for creating the necessary tables and inserting testing data.
+
+   - Make sure to update the `DatabaseUtil.java` file, where the database connection URL is specified. By default, it is set to port **4306**:
+     ```java
+     private static final String URL = "jdbc:mysql://localhost:4306/oms_db";
+     ```
+     If you are using the default MySQL port, change it to:
+     ```java
+     private static final String URL = "jdbc:mysql://localhost:3306/oms_db";
+     ```
+
+5. **Build the Project**:
    Use Maven to build the project:
    ```sh
    mvn clean install
    ```
 
-4. **Run the Project**:
+6. **Run the Project**:
    After building the project, run it using Maven:
    ```sh
    mvn exec:java
@@ -42,12 +57,10 @@ The **Order Processing System** is a Java-based application that processes order
 ## Contributing
 
 1. Fork the repository.
-2. Create a new branch .
+2. Create a new branch.
 3. Make changes and commit.
-4. Push your branch .
+4. Push your branch.
 5. Open a Pull Request.
-
-
 
 ## Acknowledgements
 - [Jackson](https://github.com/FasterXML/jackson) for JSON processing.
