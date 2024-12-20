@@ -12,47 +12,50 @@ The **Order Processing System** is a Java-based application that processes order
 ## Technologies Used
 - **Programming Language**: Java
 - **Libraries**:
-  - Jackson (for JSON parsing and writing)
-  - JUnit (for unit testing)
-  - MySQL (for database storage)
+   - Jackson (for JSON parsing and writing)
+   - JUnit (for unit testing)
+   - MySQL (for database storage)
 
 ## Setup Instructions
 
 1. **Clone the Repository**:
-   ```sh
-   git clone https://github.com/Adamo08/OrderProcessingSystem.git
-   cd OrderProcessingSystem
-   ```
+    ```sh
+    git clone https://github.com/Adamo08/OrderProcessingSystem.git
+    cd OrderProcessingSystem
+    ```
 
 2. **Install Dependencies**:
-   Ensure you have Java and Maven installed.
+    Ensure you have Java and Maven installed.
 
 3. **Create the Database**:
-   - First, create a MySQL database named ```oms_db```
+    - First, create a MySQL database named ```oms_db```.
 
 4. **Import the Database Schema**:
-   - Import the `tables.sql` file located in the `util` package to your database in phpMyAdmin. This file contains the SQL commands for creating the necessary tables and inserting testing data.
+    - Import the `tables.sql` file located in the `util` package to your database in phpMyAdmin. This file contains the SQL commands for creating the necessary tables and inserting testing data.
 
-   - Make sure to update the `DatabaseUtil.java` file, where the database connection URL is specified. By default, it is set to port **4306**:
-     ```java
-     private static final String URL = "jdbc:mysql://localhost:4306/oms_db";
-     ```
-     If you are using the default MySQL port, change it to:
-     ```java
-     private static final String URL = "jdbc:mysql://localhost:3306/oms_db";
-     ```
+    - Make sure to update the `DatabaseUtil.java` file, where the database connection URL is specified. By default, it is set to port **4306**:
+       ```java
+       private static final String URL = "jdbc:mysql://localhost:4306/oms_db";
+       ```
+       If you are using the default MySQL port, change it to:
+       ```java
+       private static final String URL = "jdbc:mysql://localhost:3306/oms_db";
+       ```
 
 5. **Build the Project**:
-   Use Maven to build the project:
-   ```sh
-   mvn clean install
-   ```
+    Use Maven to build the project:
+    ```sh
+    mvn clean install
+    ```
 
 6. **Run the Project**:
-   After building the project, run it using Maven:
-   ```sh
-   mvn exec:java
-   ```
+    After building the project, run it using Maven:
+    ```sh
+    mvn exec:java
+    ```
+
+## Demo Video
+For a detailed walkthrough of the project, refer to the [demo video](src/main/java/com/adamo/resources/data/screenshots/demo_DL_JAVA.mp4).
 
 ## Contributing
 
